@@ -6,6 +6,7 @@ import unittest
 from models.base_model import BaseModel, CLASS_KEY
 from time import sleep
 
+
 class TestBaseModel(unittest.TestCase):
     """Test Base Model"""
 
@@ -64,7 +65,6 @@ class TestBaseModel(unittest.TestCase):
             base_model_json[CLASS_KEY]
         except KeyError:
             self.fail("Model JSON representation doesnt have class attr")
-
 
     def test_from_dict(self):
         """Test if instance can be created from JSON"""

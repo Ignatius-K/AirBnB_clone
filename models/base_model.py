@@ -4,8 +4,10 @@
 
 import uuid
 from datetime import datetime
+import models
 
 CLASS_KEY = "__class__"
+
 
 class BaseModel:
     """Base Model defining common attributes and methods"""
@@ -24,6 +26,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def __str__(self):
         """Return instance string representation"""
