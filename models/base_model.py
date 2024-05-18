@@ -10,7 +10,7 @@ CLASS_KEY = "__class__"
 class BaseModel:
     """Base Model defining common attributes and methods"""
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Define BaseModel instance
 
         Args:
@@ -18,9 +18,12 @@ class BaseModel:
             created_at (str): The time when instance created
             updated_at (str): The time when instance last updated
         """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if len(kwargs.items()) > 0:
+            self.from_dict(kwargs)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """Return instance string representation"""
@@ -39,3 +42,17 @@ class BaseModel:
                 value = value.isoformat()
             temp[key] = value
         return (temp)
+
+    def from_dict(self, values: dict):
+        """Create an instance from dict
+
+        Args:
+            values (dict): The dict_values
+        """
+        date_keys = ["created_at", "updated_at"]
+        for key, value in values.items():
+            if key == CLASS_KEY:
+                continue
+            if key in date_keys:
+                value = datetime.fromisoformat(value)
+            setattr(self, key, value)

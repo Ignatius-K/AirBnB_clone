@@ -3,7 +3,7 @@
 """Module tests the base_model.py"""
 
 import unittest
-from models.base_model import BaseModel
+from models.base_model import BaseModel, CLASS_KEY
 from time import sleep
 
 class TestBaseModel(unittest.TestCase):
@@ -57,14 +57,23 @@ class TestBaseModel(unittest.TestCase):
 
     def test_to_dict(self):
         """Tests if instance is properly converted to dict"""
-        class_key = "__class__"
         base_model = BaseModel()
         base_model_json = base_model.to_dict()
         self.assertIsInstance(base_model_json, dict)
         try:
-            base_model_json[class_key]
+            base_model_json[CLASS_KEY]
         except KeyError:
             self.fail("Model JSON representation doesnt have class attr")
+
+
+    def test_from_dict(self):
+        """Test if instance can be created from JSON"""
+        model = BaseModel()
+        model_json_repr = model.to_dict()
+        model_from_json = BaseModel(**model_json_repr)
+        self.assertEqual(model.id, model_from_json.id)
+        self.assertEqual(model.created_at, model_from_json.created_at)
+        self.assertNotEqual(model, model_from_json)
 
     def tearDown(self):
         super().tearDown()
