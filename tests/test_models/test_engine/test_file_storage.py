@@ -6,6 +6,7 @@ import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
+
 class TestFileStorage(unittest.TestCase):
     """Test File Storage class"""
 
@@ -24,7 +25,9 @@ class TestFileStorage(unittest.TestCase):
         model = BaseModel()
         self.storage.new(model)
         self.assertIsInstance(self.storage.all(), dict)
-        model_from_storage = self.storage.all().get(f"{type(model).__name__}.{model.id}")
+        all_models = self.storage.all()
+        test_model_key = f"{type(model).__name__}.{model.id}"
+        model_from_storage = all_models.get(test_model_key)
         self.assertEqual(model_from_storage.id, model.id)
 
     def test_reload(self):

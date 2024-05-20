@@ -20,7 +20,6 @@ class FileStorage:
     __file_path = DEFAULT_FILE_PATH
     __objects = {}
 
-
     def all(self):
         """Returns all serialized objects"""
         return (self.__objects)
@@ -32,12 +31,14 @@ class FileStorage:
             obj: The object to add
         """
         obj_json = obj.to_dict()
-        self.__objects.__setitem__(f"{obj_json.get(CLASS_KEY)}.{obj_json.get('id')}", obj)
+        obj_key = f"{obj_json.get(CLASS_KEY)}.{obj_json.get('id')}"
+        self.__objects.__setitem__(obj_key, obj)
 
     def save(self):
         """Saves the objects to JSON file"""
+        data = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
         with open(FileStorage.__file_path, "w") as f:
-            json.dump({k : v.to_dict() for k, v in FileStorage.__objects.items()}, f)
+            json.dump(data, f)
 
     def reload(self):
         """Reloads the objects in JSON
@@ -56,4 +57,4 @@ class FileStorage:
                 data = json.load(f)
         except json.JSONDecodeError:
             return
-        FileStorage.__objects = {k : BaseModel(**v) for k, v in data.items()}
+        FileStorage.__objects = {k: BaseModel(**v) for k, v in data.items()}
