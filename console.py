@@ -91,7 +91,7 @@ class HBNBCommand(cmd.Cmd):
             print([str(model) for _, model in models.storage.all().items()])
             return
         _type = self.__class__.get_model(line)
-        if not model_type:
+        if not _type:
             return
         all_models = models.storage.all().items()
         print([str(model) for _, model in all_models if type(model) is _type])
