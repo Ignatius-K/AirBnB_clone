@@ -12,7 +12,6 @@ DEFAULT_FILE_PATH = "file.json"
 
 
 class FileStorage:
-
     """Defines File Storage engine
 
     __file_path (str): The path to the JSON file
@@ -52,10 +51,14 @@ class FileStorage:
         if not (os.path.exists(file_path) and os.path.isfile(file_path)):
             return
 
-        data = None
         try:
             with open(file_path, "r") as f:
                 data = json.load(f)
         except json.JSONDecodeError:
             return
-        FileStorage.__objects = {k: globals()[k.split(".")[0]](**v) for k, v in data.items()}
+        reloaded_data = {}
+        for k, v in data.items():
+            model_type = globals()[k.split(".")[0]]
+            # ISSUE: what if class not in globals
+            reloaded_data[k] = model_type(**v)
+        FileStorage.__objects = reloaded_data

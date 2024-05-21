@@ -26,4 +26,3 @@ class User(BaseModel):
             kwargs: User attributes
         """
         super().__init__(*args, **kwargs)
-
