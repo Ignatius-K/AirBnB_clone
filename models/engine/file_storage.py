@@ -5,6 +5,7 @@
 import json
 import os
 from models.base_model import CLASS_KEY, BaseModel
+from models import *
 
 
 DEFAULT_FILE_PATH = "file.json"
@@ -57,4 +58,4 @@ class FileStorage:
                 data = json.load(f)
         except json.JSONDecodeError:
             return
-        FileStorage.__objects = {k: BaseModel(**v) for k, v in data.items()}
+        FileStorage.__objects = {k: globals()[k.split(".")[0]](**v) for k, v in data.items()}
