@@ -3,10 +3,11 @@ body {
 	min-height: 100vh;
 	margin: 0;
 	padding: 0;
-	height: 100vh;
 	display: flex;
 	flex-direction: column;
+	padding-bottom: 60px; /* the footer height */
 	font-size: 14px;
+	color: #484848;
 	font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
@@ -14,6 +15,7 @@ body {
 	width: 100%;
 	max-width: 1000px;
 	margin: 30px auto;
+	padding-inline: 1rem;
 }
 
 section.filters {
