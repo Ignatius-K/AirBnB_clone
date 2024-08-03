@@ -1,0 +1,26 @@
+.filter {
+	height: 100%;
+	width: 25%;
+	padding-inline-start: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.filter h3,
+.filter h4 {
+	margin: 0;
+}
+
+.filter h3 {
+	font-weight: 600;
+}
+
+.filter h4 {
+	font-weight: 400;
+	font-size: 14px;
+}
+
+.locations {
+	border-right: 1px #DDDDDD solid;
+}

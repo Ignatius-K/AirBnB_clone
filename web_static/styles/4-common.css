@@ -23,7 +23,6 @@ section.filters {
 	border: 1px #DDDDDD solid;
 	border-radius: 4px;
 	display: flex;
-	flex-direction: row-reverse;
 	align-items: center;
 }
 
@@ -35,7 +34,7 @@ section.filters button {
 	border: none;
 	border-radius: 4px;
 	font-size: 18px;
-	margin-right: 30px;
+	margin-inline: auto 30px;
 }
 
 section.filters button:hover {
